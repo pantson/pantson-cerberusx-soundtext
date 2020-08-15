@@ -5,3 +5,5 @@
 # Function UpdateSoundText:Void()
 
 # Class SoundText
+
+The SoundText class. This class has no public methods or fields
