@@ -7,6 +7,7 @@ Import wavdata
 #If NOT WAVDATA_MODULE_LOADED
 	#Error "WavData class not found. Please download from github.com/pantson"
 #End
+#SOUNDTEXT_MODULE_LOADED="LOADED"
 
 Private
 Global _sound_texts:SoundText[]
@@ -40,8 +41,8 @@ Function UpdateSoundText:Void()
 	End
 End
 
-Function PlaySoundText:Void(text:String,channel:Int=0)
-	Local words:String[] = text.Split(" ")
+Function PlaySoundText:Void(phrase:String,channel:Int=0)
+	Local words:String[] = phrase.Split(" ")
 	For Local i:Int = 0 Until words.Length()
 		For Local j:Int=0 Until _sound_texts.Length()
 			If words[i].ToLower().Trim() = _sound_texts[j].word

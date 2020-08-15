@@ -1,8 +1,18 @@
 # Module soundtext
 
+This module allows the user to queue Sounds using a text phrase.
+ 
 # Function LoadSoundText:SoundText(word:String,file:String)
 
+Assigns a word to a WAV file
+
 # Function UpdateSoundText:Void()
+
+Use this function in OnUpdate(). Without the call to this fucntion the phrase wont be processed.
+
+# Function PlaySoundText:Void(phrase:String, channel:Int=0)
+
+Queues the phrase ready for playing.
 
 # Class SoundText
 
