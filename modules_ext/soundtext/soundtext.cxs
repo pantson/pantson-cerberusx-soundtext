@@ -67,7 +67,7 @@ Class SoundText
 		snd=LoadSound(file)
 		
 		Local data:WavData = GetWavData(file)
-		length = data.length
+		length = data.millisecs
 	End
 End
 
