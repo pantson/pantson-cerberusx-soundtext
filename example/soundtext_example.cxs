@@ -23,7 +23,7 @@ Class myClass Extends App
     
     Method OnUpdate:Int()
     	UpdateSoundText()
-    	If KeyHit(KEY_SPACE)
+    	If KeyHit(KEY_SPACE) Or MouseHit(MOUSE_LEFT)
     		Local player:String = (["one","two"])[Rnd(2)]
     		Select Int(Rnd(3))
     		Case 1
@@ -39,7 +39,7 @@ Class myClass Extends App
     
     Method OnRender:Int()
         cnvs.Clear (0.2,0.2,0.2)	
-        cnvs.DrawText( String("SoundText demo~nPress SPACE for random phrase").Split("~n")),DeviceWidth()/2,DeviceHeight()/2,0.5,0.5
+        cnvs.DrawText( String("SoundText demo~nHit screen for random phrase").Split("~n")),DeviceWidth()/2,DeviceHeight()/2,0.5,0.5
         cnvs.Flush
 
         Return 0

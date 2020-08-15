@@ -1,0 +1,7 @@
+# Module soundtext
+
+# Function LoadSoundText:SoundText(word:String,file:String)
+
+# Function UpdateSoundText:Void()
+
+# Class SoundText

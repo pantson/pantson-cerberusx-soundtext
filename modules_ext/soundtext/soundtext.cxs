@@ -1,0 +1,72 @@
+Strict
+
+Import mojo.audio
+Import mojo.app
+Import wavdata
+
+#If NOT WAVDATA_MODULE_LOADED
+	#Error "WavData class not found. Please download from github.com/pantson"
+#End
+
+Private
+Global _sound_texts:SoundText[]
+Global _sound_text_queue:SoundText[]
+Global _sound_text_time:Int=0
+
+Public
+Function LoadSoundText:SoundText(word:String,file:String)
+	_sound_texts = _sound_texts.Resize(_sound_texts.Length()+1)
+	_sound_texts[_sound_texts.Length()-1] = New SoundText(word.ToLower().Trim(),file)
+	Return _sound_texts[_sound_texts.Length()-1]
+End
+
+Function UpdateSoundText:Void()
+	If _sound_text_time<Millisecs()
+		If _sound_text_queue.Length()>0
+			' play first sound
+			PlaySound _sound_text_queue[0].snd,0
+			
+			_sound_text_time = Millisecs()+_sound_text_queue[0].length
+			
+			If _sound_text_queue.Length()>1
+				For Local j:Int = 0 To _sound_text_queue.Length()-2
+					_sound_text_queue[j] = _sound_text_queue[j+1]
+				Next 
+			End
+			_sound_text_queue = _sound_text_queue.Resize(_sound_text_queue.Length()-1)
+		Else
+			_sound_text_time=0
+		End
+	End
+End
+
+Function PlaySoundText:Void(text:String,channel:Int=0)
+	Local words:String[] = text.Split(" ")
+	For Local i:Int = 0 Until words.Length()
+		For Local j:Int=0 Until _sound_texts.Length()
+			If words[i].ToLower().Trim() = _sound_texts[j].word
+				' queue word
+				_sound_text_queue = _sound_text_queue.Resize(_sound_text_queue.Length()+1)
+				_sound_text_queue[_sound_text_queue.Length()-1]=_sound_texts[j]
+				j=_sound_texts.Length()
+			End
+		Next
+	Next
+End
+
+Class SoundText
+	Private
+	
+	Field word:String
+	Field snd:Sound
+	Field length:Int
+	
+	Method New(_word:String,file:String)
+		word=_word
+		snd=LoadSound(file)
+		
+		Local data:WavData = GetWavData(file)
+		length = data.length
+	End
+End
+
