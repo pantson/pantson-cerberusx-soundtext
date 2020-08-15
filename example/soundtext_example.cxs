@@ -1,0 +1,52 @@
+Strict
+
+Import mojo2
+Import soundtext
+
+Class myClass Extends App
+	Field cnvs:Canvas
+
+    Method OnCreate:Int()
+        SetUpdateRate(60)				
+        cnvs = New Canvas
+        
+        LoadSoundText("player","player.wav")
+        LoadSoundText("one","one.wav")
+        LoadSoundText("two","two.wav")
+        LoadSoundText("requires","requires.wav")
+        LoadSoundText("ammo","ammo.wav")
+        LoadSoundText("health","health.wav")
+        LoadSoundText("keys","keys.wav")
+        
+        Return 0
+    End
+    
+    Method OnUpdate:Int()
+    	UpdateSoundText()
+    	If KeyHit(KEY_SPACE)
+    		Local player:String = (["one","two"])[Rnd(2)]
+    		Select Int(Rnd(3))
+    		Case 1
+    			PlaySoundText("player "+player+" requires health")
+    		Case 2
+    			PlaySoundText("player "+player+" requires ammo")
+    		Default
+    			PlaySoundText("player "+player+" requires keys")
+    		End
+    	End
+        Return 0
+    End
+    
+    Method OnRender:Int()
+        cnvs.Clear (0.2,0.2,0.2)	
+        cnvs.DrawText( String("SoundText demo~nPress SPACE for random phrase").Split("~n")),DeviceWidth()/2,DeviceHeight()/2,0.5,0.5
+        cnvs.Flush
+
+        Return 0
+    End
+End
+
+Function Main:Int()
+    New myClass		
+    Return 0
+End
