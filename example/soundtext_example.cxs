@@ -38,7 +38,8 @@ Class myClass Extends App
     End
     
     Method OnRender:Int()
-        cnvs.Clear (0.2,0.2,0.2)	
+        cnvs.Clear (0,0.2,0)	
+        cnvs.SetColor (0,0.8,0)	
         cnvs.DrawText( String("SoundText demo~nHit screen for random phrase").Split("~n")),DeviceWidth()/2,DeviceHeight()/2,0.5,0.5
         cnvs.Flush
 

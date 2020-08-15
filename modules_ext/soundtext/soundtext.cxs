@@ -7,6 +7,7 @@ Import wavdata
 #If NOT WAVDATA_MODULE_LOADED
 	#Error "WavData class not found. Please download from github.com/pantson"
 #End
+
 #SOUNDTEXT_MODULE_LOADED="LOADED"
 
 Private
