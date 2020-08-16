@@ -26,7 +26,7 @@ Function UpdateSoundText:Void()
 	If _sound_text_time<Millisecs()
 		If _sound_text_queue.Length()>0
 			' play first sound
-			PlaySound _sound_text_queue[0].snd,0
+			PlaySound _sound_text_queue[0].snd,_sound_text_queue[0].channel
 			
 			_sound_text_time = Millisecs()+_sound_text_queue[0].length
 			
@@ -49,7 +49,13 @@ Function PlaySoundText:Void(phrase:String,channel:Int=0)
 			If words[i].ToLower().Trim() = _sound_texts[j].word
 				' queue word
 				_sound_text_queue = _sound_text_queue.Resize(_sound_text_queue.Length()+1)
-				_sound_text_queue[_sound_text_queue.Length()-1]=_sound_texts[j]
+				_sound_text_queue[_sound_text_queue.Length()-1]=New SoundText()
+				Local s:SoundText = _sound_text_queue[_sound_text_queue.Length()-1]
+				s.channel = channel
+				s.length = _sound_texts[j].length
+				s.snd = _sound_texts[j].snd
+				s.word = _sound_texts[j].word
+				
 				j=_sound_texts.Length()
 			End
 		Next
@@ -62,6 +68,7 @@ Class SoundText
 	Field word:String
 	Field snd:Sound
 	Field length:Int
+	Field channel:Int
 	
 	Method New(_word:String,file:String)
 		word=_word
